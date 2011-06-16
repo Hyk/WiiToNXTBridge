@@ -16,9 +16,7 @@
 {
     // Insert code here to initialize your application
     
-    //Testing
-    
-    // testing 2
+    // Ragsters comments is now gone.. gone I say :)
 }
 
 @end
