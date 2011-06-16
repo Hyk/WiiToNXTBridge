@@ -1,0 +1,285 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AF8B9B1013AA91FF00E0C041 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8B9B0F13AA91FF00E0C041 /* Cocoa.framework */; };
+		AF8B9B1A13AA91FF00E0C041 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF8B9B1813AA91FF00E0C041 /* InfoPlist.strings */; };
+		AF8B9B1D13AA91FF00E0C041 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8B9B1C13AA91FF00E0C041 /* main.m */; };
+		AF8B9B2013AA91FF00E0C041 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AF8B9B1E13AA91FF00E0C041 /* Credits.rtf */; };
+		AF8B9B2313AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */; };
+		AF8B9B2613AA91FF00E0C041 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF8B9B2413AA91FF00E0C041 /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AF8B9B0B13AA91FF00E0C041 /* WiiToNXTBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiiToNXTBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF8B9B0F13AA91FF00E0C041 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		AF8B9B1213AA91FF00E0C041 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		AF8B9B1313AA91FF00E0C041 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AF8B9B1413AA91FF00E0C041 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AF8B9B1713AA91FF00E0C041 /* WiiToNXTBridge-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WiiToNXTBridge-Info.plist"; sourceTree = "<group>"; };
+		AF8B9B1913AA91FF00E0C041 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AF8B9B1B13AA91FF00E0C041 /* WiiToNXTBridge-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WiiToNXTBridge-Prefix.pch"; sourceTree = "<group>"; };
+		AF8B9B1C13AA91FF00E0C041 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AF8B9B1F13AA91FF00E0C041 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		AF8B9B2113AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WiiToNXTBridgeAppDelegate.h; sourceTree = "<group>"; };
+		AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WiiToNXTBridgeAppDelegate.m; sourceTree = "<group>"; };
+		AF8B9B2513AA91FF00E0C041 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AF8B9B0813AA91FF00E0C041 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF8B9B1013AA91FF00E0C041 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AF8B9B0013AA91FF00E0C041 = {
+			isa = PBXGroup;
+			children = (
+				AF8B9B1513AA91FF00E0C041 /* WiiToNXTBridge */,
+				AF8B9B0E13AA91FF00E0C041 /* Frameworks */,
+				AF8B9B0C13AA91FF00E0C041 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AF8B9B0C13AA91FF00E0C041 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AF8B9B0B13AA91FF00E0C041 /* WiiToNXTBridge.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AF8B9B0E13AA91FF00E0C041 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AF8B9B0F13AA91FF00E0C041 /* Cocoa.framework */,
+				AF8B9B1113AA91FF00E0C041 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AF8B9B1113AA91FF00E0C041 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AF8B9B1213AA91FF00E0C041 /* AppKit.framework */,
+				AF8B9B1313AA91FF00E0C041 /* CoreData.framework */,
+				AF8B9B1413AA91FF00E0C041 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		AF8B9B1513AA91FF00E0C041 /* WiiToNXTBridge */ = {
+			isa = PBXGroup;
+			children = (
+				AF8B9B2113AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.h */,
+				AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */,
+				AF8B9B2413AA91FF00E0C041 /* MainMenu.xib */,
+				AF8B9B1613AA91FF00E0C041 /* Supporting Files */,
+			);
+			path = WiiToNXTBridge;
+			sourceTree = "<group>";
+		};
+		AF8B9B1613AA91FF00E0C041 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AF8B9B1713AA91FF00E0C041 /* WiiToNXTBridge-Info.plist */,
+				AF8B9B1813AA91FF00E0C041 /* InfoPlist.strings */,
+				AF8B9B1B13AA91FF00E0C041 /* WiiToNXTBridge-Prefix.pch */,
+				AF8B9B1C13AA91FF00E0C041 /* main.m */,
+				AF8B9B1E13AA91FF00E0C041 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AF8B9B0A13AA91FF00E0C041 /* WiiToNXTBridge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF8B9B2913AA91FF00E0C041 /* Build configuration list for PBXNativeTarget "WiiToNXTBridge" */;
+			buildPhases = (
+				AF8B9B0713AA91FF00E0C041 /* Sources */,
+				AF8B9B0813AA91FF00E0C041 /* Frameworks */,
+				AF8B9B0913AA91FF00E0C041 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WiiToNXTBridge;
+			productName = WiiToNXTBridge;
+			productReference = AF8B9B0B13AA91FF00E0C041 /* WiiToNXTBridge.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AF8B9B0213AA91FF00E0C041 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = AF8B9B0513AA91FF00E0C041 /* Build configuration list for PBXProject "WiiToNXTBridge" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AF8B9B0013AA91FF00E0C041;
+			productRefGroup = AF8B9B0C13AA91FF00E0C041 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AF8B9B0A13AA91FF00E0C041 /* WiiToNXTBridge */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AF8B9B0913AA91FF00E0C041 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF8B9B1A13AA91FF00E0C041 /* InfoPlist.strings in Resources */,
+				AF8B9B2013AA91FF00E0C041 /* Credits.rtf in Resources */,
+				AF8B9B2613AA91FF00E0C041 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AF8B9B0713AA91FF00E0C041 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF8B9B1D13AA91FF00E0C041 /* main.m in Sources */,
+				AF8B9B2313AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AF8B9B1813AA91FF00E0C041 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF8B9B1913AA91FF00E0C041 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AF8B9B1E13AA91FF00E0C041 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF8B9B1F13AA91FF00E0C041 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		AF8B9B2413AA91FF00E0C041 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF8B9B2513AA91FF00E0C041 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AF8B9B2713AA91FF00E0C041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AF8B9B2813AA91FF00E0C041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AF8B9B2A13AA91FF00E0C041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WiiToNXTBridge/WiiToNXTBridge-Prefix.pch";
+				INFOPLIST_FILE = "WiiToNXTBridge/WiiToNXTBridge-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AF8B9B2B13AA91FF00E0C041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WiiToNXTBridge/WiiToNXTBridge-Prefix.pch";
+				INFOPLIST_FILE = "WiiToNXTBridge/WiiToNXTBridge-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AF8B9B0513AA91FF00E0C041 /* Build configuration list for PBXProject "WiiToNXTBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF8B9B2713AA91FF00E0C041 /* Debug */,
+				AF8B9B2813AA91FF00E0C041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF8B9B2913AA91FF00E0C041 /* Build configuration list for PBXNativeTarget "WiiToNXTBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF8B9B2A13AA91FF00E0C041 /* Debug */,
+				AF8B9B2B13AA91FF00E0C041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AF8B9B0213AA91FF00E0C041 /* Project object */;
+}

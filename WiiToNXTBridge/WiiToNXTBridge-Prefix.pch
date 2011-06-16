@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'WiiToNXTBridge' target in the 'WiiToNXTBridge' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
