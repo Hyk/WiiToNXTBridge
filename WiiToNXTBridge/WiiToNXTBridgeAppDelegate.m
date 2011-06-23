@@ -16,7 +16,9 @@
 {
     // Insert code here to initialize your application
     
-    // Ragsters comments is now gone.. gone I say :)
+    // Ragsters comments is now gone.. gone I say :) :-)
+    
+    //Jubii virker stadig idag den 23/6-2011
 }
 
 @end
