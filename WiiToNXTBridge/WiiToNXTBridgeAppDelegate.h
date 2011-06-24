@@ -10,9 +10,13 @@
 
 @interface WiiToNXTBridgeAppDelegate : NSObject <NSApplicationDelegate> {
 @private
+    int counter;
     NSWindow *window;
+    NSTextField *labelT;
 }
 
 @property (assign) IBOutlet NSWindow *window;
+- (IBAction)buttonP:(id)sender;
+@property (assign) IBOutlet NSTextField *labelT;
 
 @end

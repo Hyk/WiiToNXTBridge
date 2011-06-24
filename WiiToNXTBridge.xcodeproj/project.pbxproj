@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF11A05213B4B095006F8553 /* TestButtonCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = AF11A05113B4B095006F8553 /* TestButtonCounter.m */; };
 		AF8B9B1013AA91FF00E0C041 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8B9B0F13AA91FF00E0C041 /* Cocoa.framework */; };
 		AF8B9B1A13AA91FF00E0C041 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AF8B9B1813AA91FF00E0C041 /* InfoPlist.strings */; };
 		AF8B9B1D13AA91FF00E0C041 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8B9B1C13AA91FF00E0C041 /* main.m */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF11A05013B4B095006F8553 /* TestButtonCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestButtonCounter.h; sourceTree = "<group>"; };
+		AF11A05113B4B095006F8553 /* TestButtonCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestButtonCounter.m; sourceTree = "<group>"; };
 		AF8B9B0B13AA91FF00E0C041 /* WiiToNXTBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WiiToNXTBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF8B9B0F13AA91FF00E0C041 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AF8B9B1213AA91FF00E0C041 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -85,6 +88,8 @@
 				AF8B9B2113AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.h */,
 				AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */,
 				AF8B9B2413AA91FF00E0C041 /* MainMenu.xib */,
+				AF11A05013B4B095006F8553 /* TestButtonCounter.h */,
+				AF11A05113B4B095006F8553 /* TestButtonCounter.m */,
 				AF8B9B1613AA91FF00E0C041 /* Supporting Files */,
 			);
 			path = WiiToNXTBridge;
@@ -164,6 +169,7 @@
 			files = (
 				AF8B9B1D13AA91FF00E0C041 /* main.m in Sources */,
 				AF8B9B2313AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m in Sources */,
+				AF11A05213B4B095006F8553 /* TestButtonCounter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +284,7 @@
 				AF8B9B2B13AA91FF00E0C041 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
