@@ -23,13 +23,14 @@
 }
 
 @property (assign) IBOutlet NSWindow *window;
-- (IBAction)buttonP:(id)sender;
+//- (IBAction)buttonP:(id)sender;
 @property (assign) IBOutlet NSTextField *labelT;
 
 
-
+/*
 #pragma mark -
 #pragma mark WiiRemoteDiscovery delegates
 
 - (void) willStartWiimoteConnections;
+*/
 @end

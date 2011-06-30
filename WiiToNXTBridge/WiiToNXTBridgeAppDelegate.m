@@ -19,8 +19,8 @@
 {
     counter = 0;
     
-    discovery = [[WiiRemoteDiscovery alloc] init];
-	[discovery setDelegate:self];
+    //discovery = [[WiiRemoteDiscovery alloc] init];
+	//[discovery setDelegate:self];
     // Insert code here to initialize your application
     
     // Ragsters comments is now gone.. gone I say :) :-)
@@ -28,6 +28,7 @@
     //Jubii virker stadig idag den 23/6-2011
 }
 
+/*
 - (IBAction)buttonP:(id)sender 
 {
     counter++;
@@ -91,7 +92,7 @@
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	//[mappingController setSelectionIndex:[[defaults objectForKey:@"selection"] intValue]];
 }
-
+*/
 
 
 @end

@@ -7,10 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import <WiiRemote/WiiRemote.h>
+#import <WiiRemote/WiiRemoteDiscovery.h>
 
 @interface TestButtonCounter : NSView {
 @private
+    WiiRemoteDiscovery *discovery;
+	WiiRemote* wii;
     
     NSTextField *textField;
     NSTextField *labelText;
@@ -21,5 +24,10 @@
 @property (assign) IBOutlet NSTextField *labelText;
 
 - (IBAction)buttonPress:(id)sender;
+
+#pragma mark -
+#pragma mark WiiRemoteDiscovery delegates
+
+- (void) willStartWiimoteConnections;
 
 @end
