@@ -38,6 +38,15 @@
 
 - (IBAction)buttonPress:(id)sender 
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(expansionPortChanged:)
+                                                 name:@"WiiRemoteExpansionPortChangedNotification"
+                                               object:nil];
+    
+
+	//[self setupInitialKeyMappings];		
+    
+    
     NSBeep();
     [labelText setStringValue:@"Starting up connection..."];
     
@@ -45,7 +54,8 @@
 	[discovery setDelegate:self];
     
     
-    [discovery start];    
+    [discovery start];   
+    
 }
 
 #pragma mark -
@@ -76,12 +86,49 @@
     
 	[wiimote setMotionSensorEnabled:YES];
     
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	[mappingController setSelectionIndex:[[defaults objectForKey:@"selection"] intValue]];
+    
 	//NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 }
+
+- (void) accelerationChanged:(WiiAccelerationSensorType)type accX:(unsigned short)accX accY:(unsigned short)accY accZ:(unsigned short)accZ{
+    //NSLog(@"Acceleration changed A");
+}
+
+
+/*- (void) allPressureChanged:(WiiPressureSensorType)type bbData:(WiiBalanceBoardGrid) bbData bbDataInKg:(WiiBalanceBoardGrid) bbDataInKg {
+    
+    //NSLog(@"All presureChanged changed A");
+*/
 
 - (void) buttonChanged:(WiiButtonType)type isPressed:(BOOL)isPressed{
     [labelText setStringValue:@"===== Jubii button changed ====="];
     NSLog(@"Button changed");
+    
+    //id mappings = [mappingController selection];
+	//id map = nil;
+	if (type == WiiRemoteAButton)
+    {
+        NSLog(@"Button changed A");
+        [labelText setStringValue:@"===== Button A Pressed ====="];
+    }
+    else if(type == WiiRemoteUpButton)
+    {
+        [labelText setStringValue:@"===== Button Up Pressed ====="];
+    }
+    else if(type == WiiRemoteDownButton)
+    {
+        [labelText setStringValue:@"===== Button Down Pressed ====="];
+    }
+    else if(type == WiiRemoteRightButton)
+    {
+        [labelText setStringValue:@"===== Button Right Pressed ====="];
+    }
+    else if(type == WiiRemoteLeftButton)
+    {
+        [labelText setStringValue:@"===== Button Left Pressed ====="];
+    }
 }
 
 @end

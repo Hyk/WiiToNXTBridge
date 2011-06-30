@@ -11,6 +11,10 @@
 #import <WiiRemote/WiiRemoteDiscovery.h>
 
 @interface TestButtonCounter : NSView {
+    //IBOutlet KeyConfiguration_AppDelegate* appDelegate;
+	IBOutlet NSArrayController* mappingController;
+    IBOutlet NSButton* aButton;
+    
 @private
     WiiRemoteDiscovery *discovery;
 	WiiRemote* wii;
