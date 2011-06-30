@@ -14,6 +14,7 @@
 		AF8B9B2013AA91FF00E0C041 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AF8B9B1E13AA91FF00E0C041 /* Credits.rtf */; };
 		AF8B9B2313AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */; };
 		AF8B9B2613AA91FF00E0C041 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF8B9B2413AA91FF00E0C041 /* MainMenu.xib */; };
+		D4AF883513BCD0BB00509326 /* WiiRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AF883413BCD0BB00509326 /* WiiRemote.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AF8B9B2113AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WiiToNXTBridgeAppDelegate.h; sourceTree = "<group>"; };
 		AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WiiToNXTBridgeAppDelegate.m; sourceTree = "<group>"; };
 		AF8B9B2513AA91FF00E0C041 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		D4AF883413BCD0BB00509326 /* WiiRemote.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WiiRemote.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF8B9B1013AA91FF00E0C041 /* Cocoa.framework in Frameworks */,
+				D4AF883513BCD0BB00509326 /* WiiRemote.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +69,7 @@
 		AF8B9B0E13AA91FF00E0C041 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D4AF883413BCD0BB00509326 /* WiiRemote.framework */,
 				AF8B9B0F13AA91FF00E0C041 /* Cocoa.framework */,
 				AF8B9B1113AA91FF00E0C041 /* Other Frameworks */,
 			);
@@ -240,6 +244,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -256,6 +264,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WiiToNXTBridge/WiiToNXTBridge-Prefix.pch";
