@@ -7,6 +7,7 @@
 //
 
 #import "TestButtonCounter.h"
+#import <LegoNXT/LegoNXT.h>
 #import <WiiRemote/WiiRemote.h>
 #import <WiiRemote/WiiRemoteDiscovery.h>
 
@@ -34,6 +35,20 @@
 {
     // Drawing code here.
     //[labelText setStringValue:@"Press the button to connect to the Wii remote."];
+}
+
+- (IBAction)doConnect:(id)sender
+{
+    NSBeep();
+    NSLog(@"doConnect");
+    
+    //[connectMessage setStringValue:[NSString stringWithFormat:@"Connecting..."]];
+
+    _nxt = [[NXT alloc] init];
+    [_nxt connect:self];
+    
+    
+    
 }
 
 - (IBAction)buttonPress:(id)sender 
@@ -112,10 +127,19 @@
     {
         NSLog(@"Button changed A");
         [labelText setStringValue:@"===== Button A Pressed ====="];
+        
+        [_nxt startProgram:@"helloworld.rxe"];
+        
+        [_nxt playTone:1 duration:2000];
+        
     }
     else if(type == WiiRemoteUpButton)
     {
         [labelText setStringValue:@"===== Button Up Pressed ====="];
+        
+        [_nxt setOutputState:kNXTMotorA power:50 mode:kNXTMotorOn regulationMode:kNXTRegulationModeMotorSpeed turnRatio:1 runState:kNXTMotorRunStateRunning tachoLimit:0];
+        
+        [_nxt setOutputState:kNXTMotorA power:50 mode:kNXTMotorRunStateRampUp regulationMode:kNXTRegulationModeMotorSpeed turnRatio:1 runState:kNXTMotorRunStateRunning tachoLimit:10000];
     }
     else if(type == WiiRemoteDownButton)
     {
@@ -128,6 +152,12 @@
     else if(type == WiiRemoteLeftButton)
     {
         [labelText setStringValue:@"===== Button Left Pressed ====="];
+    }
+    else if(type == WiiRemoteBButton)
+    {
+        [labelText setStringValue:@"===== Button B Pressed ====="];
+        
+        [_nxt stopProgram];
     }
 }
 

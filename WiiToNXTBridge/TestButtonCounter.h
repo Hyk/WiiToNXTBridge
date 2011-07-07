@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <LegoNXT/LegoNXT.h>
 #import <WiiRemote/WiiRemote.h>
 #import <WiiRemote/WiiRemoteDiscovery.h>
 
@@ -15,13 +16,23 @@
 	IBOutlet NSArrayController* mappingController;
     IBOutlet NSButton* aButton;
     
+    //IBOutlet NXT *_nxt;
+    //IBOutlet NSLevelIndicator *batteryLevelIndicator;
+    //IBOutlet NSTextField *connectMessage;
+    
+    IBOutlet NSButton *connectButton;
+    
 @private
     WiiRemoteDiscovery *discovery;
 	WiiRemote* wii;
+    NXT* _nxt;
     
     NSTextField *textField;
     NSTextField *labelText;
 }
+
+- (IBAction)doConnect:(id)sender;
+    
 
 @property (assign) IBOutlet NSTextField *textField;
 

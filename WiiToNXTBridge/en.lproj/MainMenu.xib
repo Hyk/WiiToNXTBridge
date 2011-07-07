@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10J869</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1305</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1339,22 +1339,43 @@
 							<int key="NSvFlags">268</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSTextField" id="433317453">
+								<object class="NSButton" id="969613433">
 									<reference key="NSNextResponder" ref="1067158834"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{8, 46}, {415, 17}}</string>
+									<string key="NSFrame">{{139, 52}, {163, 32}}</string>
 									<reference key="NSSuperview" ref="1067158834"/>
 									<reference key="NSNextKeyView"/>
 									<bool key="NSEnabled">YES</bool>
-									<object class="NSTextFieldCell" key="NSCell" id="698875518">
-										<int key="NSCellFlags">68288064</int>
-										<int key="NSCellFlags2">138413056</int>
-										<string key="NSContents">Press the button to connect to the Wii remote.</string>
+									<object class="NSButtonCell" key="NSCell" id="1044362906">
+										<int key="NSCellFlags">67239424</int>
+										<int key="NSCellFlags2">134217728</int>
+										<string key="NSContents">Connect to NXT</string>
 										<object class="NSFont" key="NSSupport" id="621486226">
 											<string key="NSName">LucidaGrande</string>
 											<double key="NSSize">13</double>
 											<int key="NSfFlags">1044</int>
 										</object>
+										<reference key="NSControlView" ref="969613433"/>
+										<int key="NSButtonFlags">-2038284033</int>
+										<int key="NSButtonFlags2">129</int>
+										<string key="NSAlternateContents"/>
+										<string key="NSKeyEquivalent"/>
+										<int key="NSPeriodicDelay">200</int>
+										<int key="NSPeriodicInterval">25</int>
+									</object>
+								</object>
+								<object class="NSTextField" id="433317453">
+									<reference key="NSNextResponder" ref="1067158834"/>
+									<int key="NSvFlags">268</int>
+									<string key="NSFrame">{{8, 101}, {415, 17}}</string>
+									<reference key="NSSuperview" ref="1067158834"/>
+									<reference key="NSNextKeyView" ref="969613433"/>
+									<bool key="NSEnabled">YES</bool>
+									<object class="NSTextFieldCell" key="NSCell" id="698875518">
+										<int key="NSCellFlags">68288064</int>
+										<int key="NSCellFlags2">138413056</int>
+										<string key="NSContents">Press the button to connect to the Wii remote.</string>
+										<reference key="NSSupport" ref="621486226"/>
 										<reference key="NSControlView" ref="433317453"/>
 										<object class="NSColor" key="NSBackgroundColor">
 											<int key="NSColorSpace">6</int>
@@ -1379,14 +1400,14 @@
 								<object class="NSButton" id="819909847">
 									<reference key="NSNextResponder" ref="1067158834"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{172, 68}, {96, 32}}</string>
+									<string key="NSFrame">{{139, 128}, {163, 32}}</string>
 									<reference key="NSSuperview" ref="1067158834"/>
 									<reference key="NSNextKeyView" ref="433317453"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="983805619">
 										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">134217728</int>
-										<string key="NSContents">Button</string>
+										<string key="NSContents">Connect to Wii</string>
 										<reference key="NSSupport" ref="621486226"/>
 										<reference key="NSControlView" ref="819909847"/>
 										<int key="NSButtonFlags">-2038284033</int>
@@ -1398,7 +1419,7 @@
 									</object>
 								</object>
 							</object>
-							<string key="NSFrame">{{20, 231}, {440, 109}}</string>
+							<string key="NSFrame">{{20, 176}, {440, 164}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSNextKeyView" ref="819909847"/>
 							<string key="NSClassName">TestButtonCounter</string>
@@ -2132,6 +2153,14 @@
 						<reference key="destination" ref="433317453"/>
 					</object>
 					<int key="connectionID">554</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">doConnect:</string>
+						<reference key="source" ref="1067158834"/>
+						<reference key="destination" ref="969613433"/>
+					</object>
+					<int key="connectionID">560</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3184,6 +3213,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="433317453"/>
+							<reference ref="969613433"/>
 							<reference ref="819909847"/>
 						</object>
 						<reference key="parent" ref="439893737"/>
@@ -3215,6 +3245,20 @@
 						<int key="objectID">542</int>
 						<reference key="object" ref="698875518"/>
 						<reference key="parent" ref="433317453"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">557</int>
+						<reference key="object" ref="969613433"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="1044362906"/>
+						</object>
+						<reference key="parent" ref="1067158834"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">558</int>
+						<reference key="object" ref="1044362906"/>
+						<reference key="parent" ref="969613433"/>
 					</object>
 				</object>
 			</object>
@@ -3446,6 +3490,8 @@
 					<string>535.IBPluginDependency</string>
 					<string>541.IBPluginDependency</string>
 					<string>542.IBPluginDependency</string>
+					<string>557.IBPluginDependency</string>
+					<string>558.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -3708,6 +3754,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{286, 129}, {275, 183}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3755,7 +3803,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">556</int>
+			<int key="maxID">565</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
