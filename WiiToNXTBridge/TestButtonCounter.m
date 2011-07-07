@@ -47,7 +47,8 @@
     _nxt = [[NXT alloc] init];
     [_nxt connect:self];
     
-    
+    [_nxt setOutputState:kNXTMotorA power:50 mode:kNXTMotorOn regulationMode:kNXTRegulationModeMotorSpeed turnRatio:1 runState:kNXTMotorRunStateRunning tachoLimit:0];
+    currentSpeed = 0;
     
 }
 
@@ -137,21 +138,32 @@
     {
         [labelText setStringValue:@"===== Button Up Pressed ====="];
         
-        [_nxt setOutputState:kNXTMotorA power:50 mode:kNXTMotorOn regulationMode:kNXTRegulationModeMotorSpeed turnRatio:1 runState:kNXTMotorRunStateRunning tachoLimit:0];
         
-        [_nxt setOutputState:kNXTMotorA power:50 mode:kNXTMotorRunStateRampUp regulationMode:kNXTRegulationModeMotorSpeed turnRatio:1 runState:kNXTMotorRunStateRunning tachoLimit:10000];
+        [_nxt moveServo:kNXTMotorA power:currentSpeed tacholimit:0];
+                
+        
     }
     else if(type == WiiRemoteDownButton)
     {
         [labelText setStringValue:@"===== Button Down Pressed ====="];
+    
+        [_nxt moveServo:kNXTMotorA power:0 tacholimit:0];
+        currentSpeed = 0;
+
     }
     else if(type == WiiRemoteRightButton)
     {
         [labelText setStringValue:@"===== Button Right Pressed ====="];
+        
+        if(currentSpeed < 100)
+            currentSpeed += 10;
     }
     else if(type == WiiRemoteLeftButton)
     {
         [labelText setStringValue:@"===== Button Left Pressed ====="];
+        
+        if(currentSpeed > -100)
+            currentSpeed -= 10;
     }
     else if(type == WiiRemoteBButton)
     {
