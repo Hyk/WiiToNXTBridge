@@ -47,8 +47,10 @@
     _nxt = [[NXT alloc] init];
     [_nxt connect:self];
     
-    [_nxt setOutputState:kNXTMotorA power:50 mode:kNXTMotorOn regulationMode:kNXTRegulationModeMotorSpeed turnRatio:1 runState:kNXTMotorRunStateRunning tachoLimit:0];
-    currentSpeed = 0;
+    [_nxt setOutputState:kNXTMotorA power:100 mode:kNXTMotorOn regulationMode:kNXTRegulationModeMotorSpeed turnRatio:1 runState:kNXTMotorRunStateRunning tachoLimit:0];
+    
+    currentSpeedA = 0;
+    currentSpeedB = 0;
     
 }
 
@@ -129,9 +131,11 @@
         NSLog(@"Button changed A");
         [labelText setStringValue:@"===== Button A Pressed ====="];
         
-        [_nxt startProgram:@"helloworld.rxe"];
+        //[_nxt startProgram:@"helloworld.rxe"];
         
-        [_nxt playTone:1 duration:2000];
+        [_nxt playTone:1 duration:200];
+        
+        [_nxt messageWrite:1 message:@"Test" size:4];
         
     }
     else if(type == WiiRemoteUpButton)
@@ -139,31 +143,38 @@
         [labelText setStringValue:@"===== Button Up Pressed ====="];
         
         
-        [_nxt moveServo:kNXTMotorA power:currentSpeed tacholimit:0];
+        //[_nxt moveServo:kNXTMotorA power:currentSpeed tacholimit:0];
                 
+        if(currentSpeedA < 100)
+            currentSpeedA += 10;
+        if(currentSpeedB < 100)
+            currentSpeedB += 10;
         
     }
     else if(type == WiiRemoteDownButton)
     {
         [labelText setStringValue:@"===== Button Down Pressed ====="];
     
-        [_nxt moveServo:kNXTMotorA power:0 tacholimit:0];
-        currentSpeed = 0;
+        //[_nxt moveServo:kNXTMotorA power:0 tacholimit:0];
+        //currentSpeed = 0;
 
+        
+        if(currentSpeedA > -100)
+            currentSpeedA -= 10;
+        if(currentSpeedB > -100)
+            currentSpeedB -= 10;
     }
     else if(type == WiiRemoteRightButton)
     {
         [labelText setStringValue:@"===== Button Right Pressed ====="];
         
-        if(currentSpeed < 100)
-            currentSpeed += 10;
+        
     }
     else if(type == WiiRemoteLeftButton)
     {
         [labelText setStringValue:@"===== Button Left Pressed ====="];
         
-        if(currentSpeed > -100)
-            currentSpeed -= 10;
+        
     }
     else if(type == WiiRemoteBButton)
     {
@@ -171,6 +182,9 @@
         
         [_nxt stopProgram];
     }
+    [_nxt moveServo:kNXTMotorA power:currentSpeedA tacholimit:0];
+    
+    [_nxt moveServo:kNXTMotorB power:currentSpeedB tacholimit:0];
 }
 
 @end

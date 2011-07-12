@@ -26,7 +26,8 @@
     WiiRemoteDiscovery *discovery;
 	WiiRemote* wii;
     NXT* _nxt;
-    int currentSpeed;
+    int currentSpeedA;
+    int currentSpeedB;
     
     NSTextField *textField;
     NSTextField *labelText;
