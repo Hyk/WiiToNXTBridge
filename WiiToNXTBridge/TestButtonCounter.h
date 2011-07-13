@@ -29,6 +29,11 @@
     int currentSpeedA;
     int currentSpeedB;
     
+    int wiiboardPosX;
+    int wiiboardPosY;
+    
+    //bounderies
+    
     NSTextField *textField;
     NSTextField *labelText;
 }
@@ -41,6 +46,7 @@
 @property (assign) IBOutlet NSTextField *labelText;
 
 - (IBAction)buttonPress:(id)sender;
+- (void) updateMotorSpeedEvent:(NSTimer*)thetimer;
 
 #pragma mark -
 #pragma mark WiiRemoteDiscovery delegates

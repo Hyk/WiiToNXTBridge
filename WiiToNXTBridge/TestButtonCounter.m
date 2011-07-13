@@ -42,6 +42,8 @@
     NSBeep();
     NSLog(@"doConnect");
     
+    
+    
     //[connectMessage setStringValue:[NSString stringWithFormat:@"Connecting..."]];
 
     _nxt = [[NXT alloc] init];
@@ -51,6 +53,13 @@
     
     currentSpeedA = 0;
     currentSpeedB = 0;
+    
+    [labelText setStringValue:@"===== Connected to NXT før ====="];
+    
+    //setup timer event
+    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateMotorSpeedEvent:) userInfo:nil repeats:YES];
+    
+    [labelText setStringValue:@"===== Connected to NXT efter ====="];
     
 }
 
@@ -75,6 +84,59 @@
     [discovery start];   
     
 }
+
+
+- (void)expansionPortChanged:(NSNotification *)nc{
+    
+	//[textView setString:[NSString stringWithFormat:@"%@\n===== Expansion port status changed. =====", [textView string]]];
+	
+	WiiRemote* tmpWii = (WiiRemote*)[nc object];
+	
+	// Check that the Wiimote reporting is the one we're connected to.
+	if (![[tmpWii address] isEqualToString:[wii address]]){
+		return;
+	}
+	
+	// Set the view for the expansion port drawer.
+	WiiExpansionPortType epType = [wii expansionPortType];
+	switch (epType) 
+    {
+            
+		case WiiNunchuk:
+			//[epDrawer setContentView: nunchukView];
+			//[epDrawer open];
+            break;
+            
+		case WiiClassicController:
+			//[epDrawer setContentView: ccView];
+			//[epDrawer open];
+            break;
+            
+		case WiiBalanceBoard:
+			//[bbDrawer open];
+            [labelText setStringValue:@"Connection Balanceboard."]; 
+            break;
+			
+		case WiiExpNotAttached:
+		default:
+            [labelText setStringValue:@"Default."];
+			//[epDrawer setContentView: nil];
+			//[epDrawer close];
+            
+            
+	}
+	
+	if ([wii isExpansionPortAttached]){
+		[wii setExpansionPortEnabled:YES];
+		NSLog(@"** Expansion Port Enabled");
+	} else {
+		[wii setExpansionPortEnabled:NO];
+		NSLog(@"** Expansion Port Disabled");
+	}	
+}
+
+
+
 
 #pragma mark -
 #pragma mark WiiRemoteDiscovery delegates
@@ -104,8 +166,11 @@
     
 	[wiimote setMotionSensorEnabled:YES];
     
+    
+    
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	[mappingController setSelectionIndex:[[defaults objectForKey:@"selection"] intValue]];
+    
     
 	//NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 }
@@ -114,11 +179,75 @@
     //NSLog(@"Acceleration changed A");
 }
 
+- (void) allPressureChanged:(WiiPressureSensorType)type bbData:(WiiBalanceBoardGrid) bbData bbDataInKg:(WiiBalanceBoardGrid) bbDataInKg {
+	//This part is for writing data to a file.  Data is scaled to local gravitational acceleration and contains absolute local times.
+	
+	//[labelText setStringValue:@"===== Balance board test allpreacure ====="];
+	
+	//End of part for writing data to file.	
+}
 
-/*- (void) allPressureChanged:(WiiPressureSensorType)type bbData:(WiiBalanceBoardGrid) bbData bbDataInKg:(WiiBalanceBoardGrid) bbDataInKg {
+
+
+
+
+- (void) updateMotorSpeedEvent:(NSTimer*)thetimer
+{
+    NSLog(@"Adjusting motor speed");
     
-    //NSLog(@"All presureChanged changed A");
-*/
+    [_nxt moveServo:kNXTMotorA power:currentSpeedA tacholimit:0];
+    
+    [_nxt moveServo:kNXTMotorB power:currentSpeedB tacholimit:0];
+}
+
+
+- (void) pressureChanged:(WiiPressureSensorType)type pressureTR:(float) pressureTR pressureBR:(float) pressureBR 
+              pressureTL:(float) pressureTL pressureBL:(float) pressureBL {
+    
+    //[labelText setStringValue:@"===== Balance board 1 ====="];
+    
+    NSLog([NSString stringWithFormat:@"%F", pressureTR]);
+    
+	if (type == WiiBalanceBoardPressureSensor){
+        int weightR = (pressureTR - pressureBR);
+        int weightL = (pressureTL - pressureBL);
+        
+
+        
+        currentSpeedA = weightL * 2;
+        currentSpeedB = weightR * 2;
+        
+        [labelText setStringValue: [NSString stringWithFormat:@"%d", weightL]];
+        [textField setStringValue: [NSString stringWithFormat:@"%d", weightR]];
+        
+        //[bPressureTR setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureTR]];
+		//[bPressureBR setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureBR]];
+		//[bPressureTL setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureTL]];
+		//[bPressureBL setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureBL]];
+		//[bbQCView setValue:[NSNumber numberWithFloat: 0.1 + (pressureTR/5)] forInputKey:[NSString stringWithString:@"sizeTR"]];
+		//[bbQCView setValue:[NSNumber numberWithFloat: 0.1 + (pressureBR/5)] forInputKey:[NSString stringWithString:@"sizeBR"]];
+		//[bbQCView setValue:[NSNumber numberWithFloat: 0.1 + (pressureTL/5)] forInputKey:[NSString stringWithString:@"sizeTL"]];
+		//[bbQCView setValue:[NSNumber numberWithFloat: 0.1 + (pressureBL/5)] forInputKey:[NSString stringWithString:@"sizeBL"]];
+		
+		//This part is for writing data to a file.  Data is scaled to local gravitational acceleration and contains absolute local times.
+		
+		//struct tm *t;
+		//struct timeval tval;
+		//struct timezone tzone;
+		
+		
+		//gettimeofday(&tval, &tzone);
+		//t = localtime(&(tval.tv_sec));
+        
+		/* Center Of Gravity Widget logic */
+		float cog_x = (pressureTR + pressureBR) - (pressureTL + pressureBL);
+		float cog_y = (pressureTL + pressureTR) - (pressureBL + pressureBR);
+		float cog_weight = (pressureTR + pressureBR + pressureTL + pressureBL);
+		
+	
+	}
+}	
+
 
 - (void) buttonChanged:(WiiButtonType)type isPressed:(BOOL)isPressed{
     [labelText setStringValue:@"===== Jubii button changed ====="];
