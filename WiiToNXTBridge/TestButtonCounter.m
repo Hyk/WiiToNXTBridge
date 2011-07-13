@@ -239,10 +239,6 @@
 		//gettimeofday(&tval, &tzone);
 		//t = localtime(&(tval.tv_sec));
         
-		/* Center Of Gravity Widget logic */
-		float cog_x = (pressureTR + pressureBR) - (pressureTL + pressureBL);
-		float cog_y = (pressureTL + pressureTR) - (pressureBL + pressureBR);
-		float cog_weight = (pressureTR + pressureBR + pressureTL + pressureBL);
 		
 	
 	}

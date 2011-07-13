@@ -15,6 +15,7 @@
 		AF8B9B2313AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */; };
 		AF8B9B2613AA91FF00E0C041 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF8B9B2413AA91FF00E0C041 /* MainMenu.xib */; };
 		D4095D2913C62DCF00CB6EF4 /* LegoNXT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4095D2813C62DCF00CB6EF4 /* LegoNXT.framework */; };
+		D435B3CA13CE13AD00B2EFCA /* WiiBoardPosCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = D435B3C913CE13AD00B2EFCA /* WiiBoardPosCalc.m */; };
 		D4AF883513BCD0BB00509326 /* WiiRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AF883413BCD0BB00509326 /* WiiRemote.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,8 @@
 		AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WiiToNXTBridgeAppDelegate.m; sourceTree = "<group>"; };
 		AF8B9B2513AA91FF00E0C041 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D4095D2813C62DCF00CB6EF4 /* LegoNXT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LegoNXT.framework; sourceTree = "<group>"; };
+		D435B3C813CE13AD00B2EFCA /* WiiBoardPosCalc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiiBoardPosCalc.h; sourceTree = "<group>"; };
+		D435B3C913CE13AD00B2EFCA /* WiiBoardPosCalc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiiBoardPosCalc.m; sourceTree = "<group>"; };
 		D4AF883413BCD0BB00509326 /* WiiRemote.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WiiRemote.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +100,8 @@
 				AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */,
 				AF8B9B2413AA91FF00E0C041 /* MainMenu.xib */,
 				AF11A05013B4B095006F8553 /* TestButtonCounter.h */,
+				D435B3C813CE13AD00B2EFCA /* WiiBoardPosCalc.h */,
+				D435B3C913CE13AD00B2EFCA /* WiiBoardPosCalc.m */,
 				AF11A05113B4B095006F8553 /* TestButtonCounter.m */,
 				AF8B9B1613AA91FF00E0C041 /* Supporting Files */,
 			);
@@ -178,6 +183,7 @@
 				AF8B9B1D13AA91FF00E0C041 /* main.m in Sources */,
 				AF8B9B2313AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m in Sources */,
 				AF11A05213B4B095006F8553 /* TestButtonCounter.m in Sources */,
+				D435B3CA13CE13AD00B2EFCA /* WiiBoardPosCalc.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
