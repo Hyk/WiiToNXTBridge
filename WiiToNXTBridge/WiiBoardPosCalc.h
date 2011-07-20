@@ -31,6 +31,12 @@ typedef struct wiiBoardPos
     Quadrant Q;
 } WiiBoardPos;
 
+typedef struct nxtMotorSpeed
+{
+    int MotorSpeedA;
+    int MotorSpeedB;
+} NXTMotorSpeed;
+
 @interface WiiBoardPosCalc : NSObject 
 {
 @private
@@ -38,14 +44,14 @@ typedef struct wiiBoardPos
     
 }
 
+- (NXTMotorSpeed) CalcMotorSpeed:(int)xPos y:(int)yPos Q:(Quadrant)quadrant;
+- (BOOL) IsWithinIdleArea:(int)xPos y:(int)yPos;
+- (BOOL) IsWithinStraightForwardArea:(int)xPos y:(int)yPos;
+- (BOOL) IsWithinStraightBackwardArea:(int)xPos y:(int)yPos;
+- (BOOL) IsWithinRotateLeftArea:(int)xPos y:(int)yPos;
+- (BOOL) IsWithinRotateRightArea:(int)xPos y:(int)yPos;
+- (BOOL) IsWithinArea:(int)xPos y:(int)yPos area:(Boundaries)boundaries;
 
-- (BOOL) IsWithinIdleArea: (int)xPos y:(int)yPos;
-- (BOOL) IsWithinStraightForwardArea: (int)xPos y:(int)yPos;
-- (BOOL) IsWithinStraingtBackwardArea: (int)xPos y:(int)yPos;
-- (BOOL) IsWithinRotateLeftArea: (int)xPos y:(int)yPos;
-- (BOOL) IsWithinRotateRightArea: (int)xPos y:(int)yPos;
-- (BOOL) IsWithinArea: (int)xPos y:(int)yPos area:(Boundaries)boundaries;
-
-- (WiiBoardPos) ConvertPressurePoints: (float) topRight pressureTL:(float)topLeft pressureBR:(float)buttomRight pressureBL:(float)buttomLeft;
+- (NXTMotorSpeed) ConvertPressurePointsToSpeed: (int)topRight pressureTL:(int)topLeft pressureBR:(int)buttomRight pressureBL:(int)buttomLeft;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <LegoNXT/LegoNXT.h>
+#import "WiiBoardPosCalc.h"
 #import <WiiRemote/WiiRemote.h>
 #import <WiiRemote/WiiRemoteDiscovery.h>
 
@@ -26,6 +27,8 @@
     WiiRemoteDiscovery *discovery;
 	WiiRemote* wii;
     NXT* _nxt;
+    WiiBoardPosCalc* _wii;
+    
     int currentSpeedA;
     int currentSpeedB;
     

@@ -7,6 +7,7 @@
 //
 
 #import "TestButtonCounter.h"
+#import "WiiBoardPosCalc.h"
 #import <LegoNXT/LegoNXT.h>
 #import <WiiRemote/WiiRemote.h>
 #import <WiiRemote/WiiRemoteDiscovery.h>
@@ -44,8 +45,7 @@
     
     
     
-    //[connectMessage setStringValue:[NSString stringWithFormat:@"Connecting..."]];
-
+    
     _nxt = [[NXT alloc] init];
     [_nxt connect:self];
     
@@ -54,13 +54,26 @@
     currentSpeedA = 0;
     currentSpeedB = 0;
     
-    [labelText setStringValue:@"===== Connected to NXT før ====="];
-    
     //setup timer event
     [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateMotorSpeedEvent:) userInfo:nil repeats:YES];
     
-    [labelText setStringValue:@"===== Connected to NXT efter ====="];
     
+    //Test kode
+    
+    //_wii = [[WiiBoardPosCalc alloc] init];
+    
+    //NXTMotorSpeed nxtMotorSpeed;
+    
+    //int TR = 30;
+    //int TL = 20;
+    //int BR = 0;
+    //int BL = 0;
+    
+    //nxtMotorSpeed = [_wii ConvertPressurePointsToSpeed:TR pressureTL:TL pressureBR:BR pressureBL:BL];
+    
+    //[labelText setStringValue:[NSString stringWithFormat:@"%d", nxtMotorSpeed.MotorSpeedA]];
+    
+    //NSLog(@"efter");
 }
 
 - (IBAction)buttonPress:(id)sender 
@@ -160,13 +173,13 @@
 	wii = [wiimote retain];
 	[wiimote setDelegate:self];
 	
-    [labelText setStringValue:@"===== Connected to WiiRemote ====="];
+    //[labelText setStringValue:@"===== Connected to WiiRemote ====="];
 	
 	[wiimote setLEDEnabled1:YES enabled2:NO enabled3:NO enabled4:NO];
     
 	[wiimote setMotionSensorEnabled:YES];
     
-    
+    _wii = [[WiiBoardPosCalc alloc] init];
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	[mappingController setSelectionIndex:[[defaults objectForKey:@"selection"] intValue]];
@@ -195,6 +208,7 @@
 {
     NSLog(@"Adjusting motor speed");
     
+    
     [_nxt moveServo:kNXTMotorA power:currentSpeedA tacholimit:0];
     
     [_nxt moveServo:kNXTMotorB power:currentSpeedB tacholimit:0];
@@ -204,21 +218,30 @@
 - (void) pressureChanged:(WiiPressureSensorType)type pressureTR:(float) pressureTR pressureBR:(float) pressureBR 
               pressureTL:(float) pressureTL pressureBL:(float) pressureBL {
     
-    //[labelText setStringValue:@"===== Balance board 1 ====="];
+    [labelText setStringValue:@"===== Preasure changed ====="];
     
-    NSLog([NSString stringWithFormat:@"%F", pressureTR]);
+    //NSLog([NSString stringWithFormat:@"%F", pressureTR]);
     
 	if (type == WiiBalanceBoardPressureSensor){
         int weightR = (pressureTR - pressureBR);
         int weightL = (pressureTL - pressureBL);
         
+        NXTMotorSpeed nxtMotorSpeed;
+        
+        
+        nxtMotorSpeed = [_wii ConvertPressurePointsToSpeed:pressureTR pressureTL:pressureTL pressureBR:pressureBR pressureBL:pressureBL];
 
+        [labelText setStringValue:[NSString stringWithFormat:@"%d", nxtMotorSpeed.MotorSpeedA]];
         
-        currentSpeedA = weightL * 2;
-        currentSpeedB = weightR * 2;
+        //NSLog([NSString stringWithFormat:@"%d", pressureTR]);
         
-        [labelText setStringValue: [NSString stringWithFormat:@"%d", weightL]];
-        [textField setStringValue: [NSString stringWithFormat:@"%d", weightR]];
+         //ConvertPressurePoints
+         
+        currentSpeedA = nxtMotorSpeed.MotorSpeedA;
+        currentSpeedB = nxtMotorSpeed.MotorSpeedB;
+        
+        //[labelText setStringValue: [NSString stringWithFormat:@"%d", weightL]];
+        //[textField setStringValue: [NSString stringWithFormat:@"%d", weightR]];
         
         //[bPressureTR setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureTR]];
 		//[bPressureBR setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureBR]];

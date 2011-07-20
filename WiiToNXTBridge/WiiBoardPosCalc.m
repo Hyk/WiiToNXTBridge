@@ -50,17 +50,33 @@
     [super dealloc];
 }
 
-- (WiiBoardPos) ConvertPressurePoints:(float)topRight pressureTL:(float)topLeft pressureBR:(float)buttomRight pressureBL:(float)buttomLeft
+- (NXTMotorSpeed) ConvertPressurePointsToSpeed:(int)topRight pressureTL:(int)topLeft pressureBR:(int)buttomRight pressureBL:(int)buttomLeft
 {
+    NSLog(@"===== ConvertPressurePointsToSpeed=====");
     WiiBoardPos wiiboardPos;
+    NXTMotorSpeed nxtMotorSpeed;
+    
+    NSLog(@"topRight");
+    NSLog([NSString stringWithFormat:@"%d", topRight]);
     
     /* Center Of Gravity Widget logic */
     int x = (topRight + buttomRight) - (topLeft + buttomLeft);
     int y = (topLeft + topRight) - (buttomLeft + buttomRight);
-    int weight = (topRight + buttomRight + topLeft + buttomLeft);
+    //int weight = (topRight + buttomRight + topLeft + buttomLeft);
+
+    NSLog(@"xPos");
+    NSLog([NSString stringWithFormat:@"%d", x]);
     
     wiiboardPos.X = x;
     wiiboardPos.Y = y;
+    
+    //NSLog([NSString stringWithFormat:@"%dTest xPos", x]);
+    //NSLog([NSString stringWithFormat:@"%dTest yPos", y]);
+    NSLog(@"X");
+    NSLog([NSString stringWithFormat:@"%d", x]);
+    NSLog(@"Y");
+    NSLog([NSString stringWithFormat:@"%d", y]);
+    
     
     if([self IsWithinIdleArea:x y:y])
     {
@@ -70,13 +86,58 @@
     {
         wiiboardPos.Q = Rotate;
     }
-    ...
+    else if([self IsWithinRotateRightArea:x y:y])
+    {
+        wiiboardPos.Q = Rotate;
+    }
+    else if([self IsWithinStraightForwardArea:x y:y])
+    {
+        wiiboardPos.Q = Straight;
+    }
+    else if([self IsWithinStraightBackwardArea:x y:y])
+    {
+        wiiboardPos.Q = Straight; 
+    }
     else
     {
         wiiboardPos.Q = Turn;
     }
     
-    return wiiboardPos;
+    NSLog(@"Quadrant");
+    NSLog([NSString stringWithFormat:@"%d", wiiboardPos.Q]);
+    
+    nxtMotorSpeed = [self CalcMotorSpeed:x y:y Q:wiiboardPos.Q];
+    
+    return nxtMotorSpeed;
+}
+
+- (NXTMotorSpeed) CalcMotorSpeed:(int)xPos y:(int)yPos Q:(Quadrant)quadrant
+{
+    NXTMotorSpeed nxtMotorSpeed;
+    
+    switch (quadrant) {
+        case Idle:
+            nxtMotorSpeed.MotorSpeedA = 0;
+            nxtMotorSpeed.MotorSpeedB = 0;
+            break;
+        case Straight:
+            nxtMotorSpeed.MotorSpeedA = yPos * 2;
+            nxtMotorSpeed.MotorSpeedB = yPos * 2;
+            break;
+        case Turn:
+            nxtMotorSpeed.MotorSpeedA = (xPos/yPos);
+            nxtMotorSpeed.MotorSpeedB = xPos;
+            break;
+        case Rotate:
+            nxtMotorSpeed.MotorSpeedA = xPos * 2;
+            nxtMotorSpeed.MotorSpeedB = - xPos * 2;
+            break;
+            
+        default:
+            break;
+    }
+    
+    return nxtMotorSpeed;
 }
 
 - (BOOL) IsWithinArea:(int)xPos y:(int)yPos area:(Boundaries)boundaries
@@ -109,22 +170,22 @@
     return [self IsWithinArea:xPos y:yPos area:idle];
 }
 
-- (BOOL) IsWithinRotateLeftArea:(int)xPos y:(int)yPos:(int)xPos y:(int)yPos
+- (BOOL) IsWithinRotateLeftArea:(int)xPos y:(int)yPos
 {
     return [self IsWithinArea:xPos y:yPos area:rotateLeft];
 }
 
-- (BOOL) IsWithinRotateRightArea:(int)xPos y:(int)yPos:(int)xPos y:(int)yPos
+- (BOOL) IsWithinRotateRightArea:(int)xPos y:(int)yPos
 {
     return [self IsWithinArea:xPos y:yPos area:rotateRight];
 }
 
-- (BOOL) IsWithinStraightForwardArea:(int)xPos y:(int)yPos:(int)xPos y:(int)yPos
+- (BOOL) IsWithinStraightForwardArea:(int)xPos y:(int)yPos
 {
     return [self IsWithinArea:xPos y:yPos area:straightForward];
 }
 
-- (BOOL) IsWithinStraingtBackwardArea:(int)xPos y:(int)yPos:(int)xPos y:(int)yPos:(int)xPos y:(int)yPos
+- (BOOL) IsWithinStraightBackwardArea:(int)xPos y:(int)yPos
 {
     return [self IsWithinArea:xPos y:yPos area:straightBackward];
 }
