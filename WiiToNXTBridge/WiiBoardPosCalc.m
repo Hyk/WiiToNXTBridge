@@ -16,30 +16,30 @@
     self = [super init];
     if (self) {
         // Initialization code here.
-        straightForward.Right   = 2;
-        straightForward.Left    = -2;
+        straightForward.Right   = 7;
+        straightForward.Left    = -7;
         straightForward.Upper   = 1000;
-        straightForward.Lower   = 2;
+        straightForward.Lower   = 10;
         
-        straightBackward.Right  = 2;
-        straightBackward.Left   = -2;
-        straightBackward.Upper  = -2;
+        straightBackward.Right  = 7;
+        straightBackward.Left   = -7;
+        straightBackward.Upper  = -10;
         straightBackward.Lower  = -1000;
         
-        rotateLeft.Right        = -2;
+        rotateLeft.Right        = -10;
         rotateLeft.Left         = -1000;
-        rotateLeft.Upper        = 2;
-        rotateLeft.Lower        = -2;
+        rotateLeft.Upper        = 10;
+        rotateLeft.Lower        = -10;
         
         rotateRight.Right       = 1000;
-        rotateRight.Left        = 2;
-        rotateRight.Upper       = 2;
-        rotateRight.Lower       = -2;
+        rotateRight.Left        = 10;
+        rotateRight.Upper       = 10;
+        rotateRight.Lower       = -10;
         
-        idle.Right              = 2;
-        idle.Left               = -2;
-        idle.Upper              = 2;
-        idle.Lower              = -2;
+        idle.Right              = 10;
+        idle.Left               = -10;
+        idle.Upper              = 10;
+        idle.Lower              = -10;
     }
     
     return self;
@@ -114,28 +114,63 @@
 - (NXTMotorSpeed) CalcMotorSpeed:(int)xPos y:(int)yPos Q:(Quadrant)quadrant
 {
     NXTMotorSpeed nxtMotorSpeed;
+    int velocityA;
+    int velocityB;
     
     switch (quadrant) {
         case Idle:
-            nxtMotorSpeed.MotorSpeedA = 0;
-            nxtMotorSpeed.MotorSpeedB = 0;
+            velocityA = 0;
+            velocityB = 0;
             break;
         case Straight:
-            nxtMotorSpeed.MotorSpeedA = yPos * 2;
-            nxtMotorSpeed.MotorSpeedB = yPos * 2;
+            if(yPos > 0)
+            {
+                velocityA = (yPos - idle.Upper) * 2;
+                velocityB = (yPos - idle.Upper) * 2;
+            }
+            else
+            {
+                velocityA = (yPos - idle.Lower) * 2;
+                velocityB = (yPos - idle.Lower) * 2;
+            }
             break;
         case Turn:
-            nxtMotorSpeed.MotorSpeedA = (xPos/yPos);
-            nxtMotorSpeed.MotorSpeedB = xPos;
+            if(xPos > 0 && yPos > 0)
+            {
+                //Top right
+                velocityA = (float)yPos * (((float)(80-xPos))/80.0);
+                velocityB = yPos;
+            }
+            else if(xPos > 0 && yPos < 0)
+            {
+                //Buttom right
+                velocityA = (float)yPos * (1.0-(((float)(xPos))/80.0));
+                velocityB = yPos;    
+            }
+            else if(xPos < 0 && yPos > 0)
+            {
+                //Top left
+                velocityA = yPos;
+                velocityB = (float)yPos * (((float)(80+xPos))/80.0);
+            }
+            else if(xPos < 0 && yPos < 0)
+            {
+                //Buttom left
+                velocityA = yPos;
+                velocityB = (float)yPos * (1.0+(((float)(xPos))/80.0));
+            }
             break;
         case Rotate:
-            nxtMotorSpeed.MotorSpeedA = xPos * 2;
-            nxtMotorSpeed.MotorSpeedB = - xPos * 2;
+            velocityA = - xPos;
+            velocityB = xPos;
             break;
             
         default:
             break;
     }
+    
+    nxtMotorSpeed.MotorSpeedA = velocityA;
+    nxtMotorSpeed.MotorSpeedB = velocityB;
     
     return nxtMotorSpeed;
 }
@@ -152,7 +187,7 @@
         return FALSE;
     }
     
-    if (xPos < boundaries.Lower) 
+    if (yPos < boundaries.Lower) 
     {
         return FALSE;
     }

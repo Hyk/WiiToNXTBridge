@@ -31,6 +31,11 @@
     
     int currentSpeedA;
     int currentSpeedB;
+    int currentPresureTR;
+    int currentPresureTL;
+    int currentPresureBR;
+    int currentPresureBL;
+    
     
     int wiiboardPosX;
     int wiiboardPosY;

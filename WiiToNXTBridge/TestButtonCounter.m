@@ -55,7 +55,7 @@
     currentSpeedB = 0;
     
     //setup timer event
-    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateMotorSpeedEvent:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateMotorSpeedEvent:) userInfo:nil repeats:YES];
     
     
     //Test kode
@@ -207,38 +207,40 @@
 - (void) updateMotorSpeedEvent:(NSTimer*)thetimer
 {
     NSLog(@"Adjusting motor speed");
+    NXTMotorSpeed nxtMotorSpeed;
     
     
-    [_nxt moveServo:kNXTMotorA power:currentSpeedA tacholimit:0];
+    nxtMotorSpeed = [_wii ConvertPressurePointsToSpeed:currentPresureTR pressureTL:currentPresureTL pressureBR:currentPresureBR pressureBL:currentPresureBL];
     
-    [_nxt moveServo:kNXTMotorB power:currentSpeedB tacholimit:0];
+    
+    
+    [_nxt moveServo:kNXTMotorA power:nxtMotorSpeed.MotorSpeedA tacholimit:0];
+    
+    [_nxt moveServo:kNXTMotorB power:nxtMotorSpeed.MotorSpeedB tacholimit:0];
 }
 
 
 - (void) pressureChanged:(WiiPressureSensorType)type pressureTR:(float) pressureTR pressureBR:(float) pressureBR 
               pressureTL:(float) pressureTL pressureBL:(float) pressureBL {
     
-    [labelText setStringValue:@"===== Preasure changed ====="];
+    //[labelText setStringValue:@"===== Preasure changed ====="];
     
     //NSLog([NSString stringWithFormat:@"%F", pressureTR]);
     
 	if (type == WiiBalanceBoardPressureSensor){
-        int weightR = (pressureTR - pressureBR);
-        int weightL = (pressureTL - pressureBL);
+        //int weightR = (pressureTR - pressureBR);
+        //int weightL = (pressureTL - pressureBL);
         
-        NXTMotorSpeed nxtMotorSpeed;
-        
-        
-        nxtMotorSpeed = [_wii ConvertPressurePointsToSpeed:pressureTR pressureTL:pressureTL pressureBR:pressureBR pressureBL:pressureBL];
+        currentPresureBL = pressureBL;
+        currentPresureBR = pressureBR;
+        currentPresureTL = pressureTL;
+        currentPresureTR = pressureTR;
 
-        [labelText setStringValue:[NSString stringWithFormat:@"%d", nxtMotorSpeed.MotorSpeedA]];
+        //[labelText setStringValue:[NSString stringWithFormat:@"%d", nxtMotorSpeed.MotorSpeedA]];
         
         //NSLog([NSString stringWithFormat:@"%d", pressureTR]);
         
          //ConvertPressurePoints
-         
-        currentSpeedA = nxtMotorSpeed.MotorSpeedA;
-        currentSpeedB = nxtMotorSpeed.MotorSpeedB;
         
         //[labelText setStringValue: [NSString stringWithFormat:@"%d", weightL]];
         //[textField setStringValue: [NSString stringWithFormat:@"%d", weightR]];
