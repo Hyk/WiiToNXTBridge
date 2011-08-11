@@ -125,20 +125,20 @@
         case Straight:
             if(yPos > 0)
             {
-                velocityA = (yPos - idle.Upper) * 2;
-                velocityB = (yPos - idle.Upper) * 2;
+                velocityA = (yPos - idle.Upper);// * 2;
+                velocityB = (yPos - idle.Upper);// * 2;
             }
             else
             {
-                velocityA = (yPos - idle.Lower) * 2;
-                velocityB = (yPos - idle.Lower) * 2;
+                velocityA = (yPos - idle.Lower);// * 2;
+                velocityB = (yPos - idle.Lower);// * 2;
             }
             break;
         case Turn:
             if(xPos > 0 && yPos > 0)
             {
                 //Top right
-                velocityA = (float)yPos * (((float)(80-xPos))/80.0);
+                velocityA = (float)yPos * ((((float)(80-xPos))/80.0)/ 1.5);
                 velocityB = yPos;
             }
             else if(xPos > 0 && yPos < 0)
@@ -151,7 +151,7 @@
             {
                 //Top left
                 velocityA = yPos;
-                velocityB = (float)yPos * (((float)(80+xPos))/80.0);
+                velocityB = (float)yPos * ((((float)(80+xPos*2))/80.0) / 1.5);
             }
             else if(xPos < 0 && yPos < 0)
             {
@@ -169,8 +169,8 @@
             break;
     }
     
-    nxtMotorSpeed.MotorSpeedA = velocityA;
-    nxtMotorSpeed.MotorSpeedB = velocityB;
+    nxtMotorSpeed.MotorSpeedA = velocityA * 2;
+    nxtMotorSpeed.MotorSpeedB = velocityB * 2;
     
     return nxtMotorSpeed;
 }

@@ -45,7 +45,6 @@
     
     
     
-    
     _nxt = [[NXT alloc] init];
     [_nxt connect:self];
     
@@ -184,7 +183,7 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	[mappingController setSelectionIndex:[[defaults objectForKey:@"selection"] intValue]];
     
-    
+    [imageWiiConnOk setHidden:TRUE];
 	//NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 }
 

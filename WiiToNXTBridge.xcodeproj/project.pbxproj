@@ -14,6 +14,9 @@
 		AF8B9B2013AA91FF00E0C041 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AF8B9B1E13AA91FF00E0C041 /* Credits.rtf */; };
 		AF8B9B2313AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */; };
 		AF8B9B2613AA91FF00E0C041 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF8B9B2413AA91FF00E0C041 /* MainMenu.xib */; };
+		AFD4EAFD13F453CD00F4E1B7 /* 800px-Wii_Balance_Board_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = AFD4EAFC13F453CD00F4E1B7 /* 800px-Wii_Balance_Board_transparent.png */; };
+		AFD4EB0113F456F500F4E1B7 /* nxt.png in Resources */ = {isa = PBXBuildFile; fileRef = AFD4EB0013F456F500F4E1B7 /* nxt.png */; };
+		AFD4EB0313F457E700F4E1B7 /* emblem_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = AFD4EB0213F457E700F4E1B7 /* emblem_ok.png */; };
 		D4095D2913C62DCF00CB6EF4 /* LegoNXT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4095D2813C62DCF00CB6EF4 /* LegoNXT.framework */; };
 		D435B3CA13CE13AD00B2EFCA /* WiiBoardPosCalc.m in Sources */ = {isa = PBXBuildFile; fileRef = D435B3C913CE13AD00B2EFCA /* WiiBoardPosCalc.m */; };
 		D4AF883513BCD0BB00509326 /* WiiRemote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AF883413BCD0BB00509326 /* WiiRemote.framework */; };
@@ -35,6 +38,9 @@
 		AF8B9B2113AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WiiToNXTBridgeAppDelegate.h; sourceTree = "<group>"; };
 		AF8B9B2213AA91FF00E0C041 /* WiiToNXTBridgeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WiiToNXTBridgeAppDelegate.m; sourceTree = "<group>"; };
 		AF8B9B2513AA91FF00E0C041 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		AFD4EAFC13F453CD00F4E1B7 /* 800px-Wii_Balance_Board_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "800px-Wii_Balance_Board_transparent.png"; path = "Images/800px-Wii_Balance_Board_transparent.png"; sourceTree = "<group>"; };
+		AFD4EB0013F456F500F4E1B7 /* nxt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nxt.png; path = Images/nxt.png; sourceTree = "<group>"; };
+		AFD4EB0213F457E700F4E1B7 /* emblem_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = emblem_ok.png; path = Images/emblem_ok.png; sourceTree = "<group>"; };
 		D4095D2813C62DCF00CB6EF4 /* LegoNXT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LegoNXT.framework; sourceTree = "<group>"; };
 		D435B3C813CE13AD00B2EFCA /* WiiBoardPosCalc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiiBoardPosCalc.h; sourceTree = "<group>"; };
 		D435B3C913CE13AD00B2EFCA /* WiiBoardPosCalc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WiiBoardPosCalc.m; sourceTree = "<group>"; };
@@ -58,6 +64,7 @@
 		AF8B9B0013AA91FF00E0C041 = {
 			isa = PBXGroup;
 			children = (
+				AFD4EAF313F44FCC00F4E1B7 /* Images */,
 				AF8B9B1513AA91FF00E0C041 /* WiiToNXTBridge */,
 				AF8B9B0E13AA91FF00E0C041 /* Frameworks */,
 				AF8B9B0C13AA91FF00E0C041 /* Products */,
@@ -120,6 +127,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		AFD4EAF313F44FCC00F4E1B7 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				AFD4EB0213F457E700F4E1B7 /* emblem_ok.png */,
+				AFD4EB0013F456F500F4E1B7 /* nxt.png */,
+				AFD4EAFC13F453CD00F4E1B7 /* 800px-Wii_Balance_Board_transparent.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -170,6 +187,9 @@
 				AF8B9B1A13AA91FF00E0C041 /* InfoPlist.strings in Resources */,
 				AF8B9B2013AA91FF00E0C041 /* Credits.rtf in Resources */,
 				AF8B9B2613AA91FF00E0C041 /* MainMenu.xib in Resources */,
+				AFD4EAFD13F453CD00F4E1B7 /* 800px-Wii_Balance_Board_transparent.png in Resources */,
+				AFD4EB0113F456F500F4E1B7 /* nxt.png in Resources */,
+				AFD4EB0313F457E700F4E1B7 /* emblem_ok.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +294,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -285,6 +305,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WiiToNXTBridge/WiiToNXTBridge-Prefix.pch";
 				INFOPLIST_FILE = "WiiToNXTBridge/WiiToNXTBridge-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				WRAPPER_EXTENSION = app;

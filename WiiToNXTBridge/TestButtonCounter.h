@@ -12,16 +12,12 @@
 #import <WiiRemote/WiiRemote.h>
 #import <WiiRemote/WiiRemoteDiscovery.h>
 
-@interface TestButtonCounter : NSView {
-    //IBOutlet KeyConfiguration_AppDelegate* appDelegate;
+@interface TestButtonCounter : NSView 
+{
 	IBOutlet NSArrayController* mappingController;
     IBOutlet NSButton* aButton;
-    
-    //IBOutlet NXT *_nxt;
-    //IBOutlet NSLevelIndicator *batteryLevelIndicator;
-    //IBOutlet NSTextField *connectMessage;
-    
     IBOutlet NSButton *connectButton;
+    IBOutlet NSImageView* imageWiiConnOk;
     
 @private
     WiiRemoteDiscovery *discovery;
@@ -36,14 +32,16 @@
     int currentPresureBR;
     int currentPresureBL;
     
-    
     int wiiboardPosX;
     int wiiboardPosY;
     
-    //bounderies
-    
+    //bounderies    
     NSTextField *textField;
     NSTextField *labelText;
+    
+    //Images
+    NSImageCell *imageWiiConOk;
+    NSImageCell *imageNxtConOk;
 }
 
 - (IBAction)doConnect:(id)sender;
