@@ -93,56 +93,6 @@
 }
 
 
-- (void)expansionPortChanged:(NSNotification *)nc{
-    
-	//[textView setString:[NSString stringWithFormat:@"%@\n===== Expansion port status changed. =====", [textView string]]];
-	
-	WiiRemote* tmpWii = (WiiRemote*)[nc object];
-	
-	// Check that the Wiimote reporting is the one we're connected to.
-	if (![[tmpWii address] isEqualToString:[m_WiiRemote address]]){
-		return;
-	}
-	
-	// Set the view for the expansion port drawer.
-	WiiExpansionPortType epType = [m_WiiRemote expansionPortType];
-	switch (epType) 
-    {
-            
-		case WiiNunchuk:
-			//[epDrawer setContentView: nunchukView];
-			//[epDrawer open];
-            break;
-            
-		case WiiClassicController:
-			//[epDrawer setContentView: ccView];
-			//[epDrawer open];
-            break;
-            
-		case WiiBalanceBoard:
-			//[bbDrawer open];
-            [g_InfoLabel setStringValue:@"Connection Balanceboard."]; 
-            break;
-			
-		case WiiExpNotAttached:
-		default:
-            [g_InfoLabel setStringValue:@"Default."];
-			//[epDrawer setContentView: nil];
-			//[epDrawer close];
-            
-            
-	}
-	
-	if ([m_WiiRemote isExpansionPortAttached]){
-		[m_WiiRemote setExpansionPortEnabled:YES];
-		NSLog(@"** Expansion Port Enabled");
-	} else {
-		[m_WiiRemote setExpansionPortEnabled:NO];
-		NSLog(@"** Expansion Port Disabled");
-	}	
-}
-
-
 /******************************************************
  //
  // The function is called continuosly by the timer event set
@@ -368,6 +318,61 @@
     [m_NXT moveServo:kNXTMotorA power:currentSpeedA tacholimit:0];
     
     [m_NXT moveServo:kNXTMotorB power:currentSpeedB tacholimit:0];
+}
+
+
+/******************************************************
+ //
+ // Dummy function used when testing
+ // 
+ *******************************************************/
+- (void)expansionPortChanged:(NSNotification *)nc{
+    
+	//[textView setString:[NSString stringWithFormat:@"%@\n===== Expansion port status changed. =====", [textView string]]];
+	
+	WiiRemote* tmpWii = (WiiRemote*)[nc object];
+	
+	// Check that the Wiimote reporting is the one we're connected to.
+	if (![[tmpWii address] isEqualToString:[m_WiiRemote address]]){
+		return;
+	}
+	
+	// Set the view for the expansion port drawer.
+	WiiExpansionPortType epType = [m_WiiRemote expansionPortType];
+	switch (epType) 
+    {
+            
+		case WiiNunchuk:
+			//[epDrawer setContentView: nunchukView];
+			//[epDrawer open];
+            break;
+            
+		case WiiClassicController:
+			//[epDrawer setContentView: ccView];
+			//[epDrawer open];
+            break;
+            
+		case WiiBalanceBoard:
+			//[bbDrawer open];
+            [g_InfoLabel setStringValue:@"Connection Balanceboard."]; 
+            break;
+			
+		case WiiExpNotAttached:
+		default:
+            [g_InfoLabel setStringValue:@"Default."];
+			//[epDrawer setContentView: nil];
+			//[epDrawer close];
+            
+            
+	}
+	
+	if ([m_WiiRemote isExpansionPortAttached]){
+		[m_WiiRemote setExpansionPortEnabled:YES];
+		NSLog(@"** Expansion Port Enabled");
+	} else {
+		[m_WiiRemote setExpansionPortEnabled:NO];
+		NSLog(@"** Expansion Port Disabled");
+	}	
 }
 
 @end
