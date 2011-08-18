@@ -13,13 +13,13 @@
 #import <WiiRemote/WiiRemoteDiscovery.h>
 
 @implementation TestButtonCounter
-@synthesize textField;
-@synthesize labelText;
+@synthesize g_InfoLabel;
 
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self) 
+    {
         // Initialization code here.
     }
     
@@ -28,8 +28,14 @@
 
 - (void)dealloc
 {
-    [super dealloc];
     [textField release];
+    [m_NxtMoterCalc release];
+    [m_WiiBoardCalc release];
+    [m_WiiRemote release];
+    [m_NXT release];
+    [m_WiiDiscovery release];
+    
+    [super dealloc];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -38,63 +44,52 @@
     //[labelText setStringValue:@"Press the button to connect to the Wii remote."];
 }
 
-- (IBAction)doConnect:(id)sender
+
+/******************************************************
+ //
+ // Handles the click event on the g_NXTConnectionButton. 
+ // The function establishes the connection to the NXT and
+ // starts the timer that updates the motor speed continiously
+ // 
+ *******************************************************/
+- (IBAction)connectToNXTButtonPressed:(id)sender
 {
     NSBeep();
     NSLog(@"doConnect");
     
+    m_NXT = [[NXT alloc] init];
+    [m_NXT connect:self];
     
-    
-    _nxt = [[NXT alloc] init];
-    [_nxt connect:self];
-    
-    [_nxt setOutputState:kNXTMotorA power:100 mode:kNXTMotorOn regulationMode:kNXTRegulationModeMotorSpeed turnRatio:1 runState:kNXTMotorRunStateRunning tachoLimit:0];
+    [m_NXT setOutputState:kNXTMotorA power:100 mode:kNXTMotorOn regulationMode:kNXTRegulationModeMotorSpeed turnRatio:1 runState:kNXTMotorRunStateRunning tachoLimit:0];
     
     currentSpeedA = 0;
     currentSpeedB = 0;
     
     //setup timer event
     [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateMotorSpeedEvent:) userInfo:nil repeats:YES];
-    
-    
-    //Test kode
-    
-    //_wii = [[WiiBoardPosCalc alloc] init];
-    
-    //NXTMotorSpeed nxtMotorSpeed;
-    
-    //int TR = 30;
-    //int TL = 20;
-    //int BR = 0;
-    //int BL = 0;
-    
-    //nxtMotorSpeed = [_wii ConvertPressurePointsToSpeed:TR pressureTL:TL pressureBR:BR pressureBL:BL];
-    
-    //[labelText setStringValue:[NSString stringWithFormat:@"%d", nxtMotorSpeed.MotorSpeedA]];
-    
-    //NSLog(@"efter");
 }
 
-- (IBAction)buttonPress:(id)sender 
+
+/******************************************************
+ //
+ // Handles the click event on the g_WiiConnectionButton. 
+ // The function establishes the connection to the Wii board
+ // 
+*******************************************************/ 
+- (IBAction)connectToWiiButtonPressed:(id)sender 
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(expansionPortChanged:)
                                                  name:@"WiiRemoteExpansionPortChangedNotification"
                                                object:nil];
+    		
     
-
-	//[self setupInitialKeyMappings];		
+    [g_InfoLabel setStringValue:@"Starting up connection..."];
     
+    m_WiiDiscovery = [[WiiRemoteDiscovery alloc] init];
+	[m_WiiDiscovery setDelegate:self];
     
-    NSBeep();
-    [labelText setStringValue:@"Starting up connection..."];
-    
-    discovery = [[WiiRemoteDiscovery alloc] init];
-	[discovery setDelegate:self];
-    
-    
-    [discovery start];   
-    
+    [m_WiiDiscovery start];
 }
 
 
@@ -105,12 +100,12 @@
 	WiiRemote* tmpWii = (WiiRemote*)[nc object];
 	
 	// Check that the Wiimote reporting is the one we're connected to.
-	if (![[tmpWii address] isEqualToString:[wii address]]){
+	if (![[tmpWii address] isEqualToString:[m_WiiRemote address]]){
 		return;
 	}
 	
 	// Set the view for the expansion port drawer.
-	WiiExpansionPortType epType = [wii expansionPortType];
+	WiiExpansionPortType epType = [m_WiiRemote expansionPortType];
 	switch (epType) 
     {
             
@@ -126,151 +121,190 @@
             
 		case WiiBalanceBoard:
 			//[bbDrawer open];
-            [labelText setStringValue:@"Connection Balanceboard."]; 
+            [g_InfoLabel setStringValue:@"Connection Balanceboard."]; 
             break;
 			
 		case WiiExpNotAttached:
 		default:
-            [labelText setStringValue:@"Default."];
+            [g_InfoLabel setStringValue:@"Default."];
 			//[epDrawer setContentView: nil];
 			//[epDrawer close];
             
             
 	}
 	
-	if ([wii isExpansionPortAttached]){
-		[wii setExpansionPortEnabled:YES];
+	if ([m_WiiRemote isExpansionPortAttached]){
+		[m_WiiRemote setExpansionPortEnabled:YES];
 		NSLog(@"** Expansion Port Enabled");
 	} else {
-		[wii setExpansionPortEnabled:NO];
+		[m_WiiRemote setExpansionPortEnabled:NO];
 		NSLog(@"** Expansion Port Disabled");
 	}	
 }
 
 
+/******************************************************
+ //
+ // The function is called continuosly by the timer event set
+ // in the connectToWiiButtonPressed function.
+ // It calculates the motor speed from the current pressure sensor
+ // values from the Wii board. Also the connection image is shown.
+ // 
+ *******************************************************/
+- (void) updateMotorSpeedEvent:(NSTimer*)thetimer
+{
+    NSLog(@"Adjusting motor speed");
+    
+    //Enable connected image
+    if([m_NXT isConnected])
+    {
+        [g_NxtConnOkImage setHidden:FALSE];
+    }
+    
+    //Get the wii board position
+    WiiBoardPos wiiBoardPos = [m_WiiBoardCalc GetWiiBoardPosition:currentPresureTR pressureTL:currentPresureTL pressureBR:currentPresureBR pressureBL:currentPresureBL];
+    
+    //Calculate the speed of the motors from the wii board position
+    NXTMotorSpeed nxtMotorSpeed = [m_NxtMoterCalc CalcMotorSpeed:wiiBoardPos];
+    
+    //Set the motor speeds on the NXT
+    [m_NXT moveServo:kNXTMotorA power:nxtMotorSpeed.MotorSpeedA tacholimit:0];
+    [m_NXT moveServo:kNXTMotorB power:nxtMotorSpeed.MotorSpeedB tacholimit:0];
+}
 
 
 #pragma mark -
 #pragma mark WiiRemoteDiscovery delegates
 
-- (void) WiiRemoteDiscoveryError:(int)code {
+/******************************************************
+ //
+ // The function is called continuosly from the wii framework.
+ // It sets the nxt button as enabled and shows the connected
+ // image. Furthermore the current pressure sensors are updated.
+ // 
+ *******************************************************/
+- (void) pressureChanged:(WiiPressureSensorType)type 
+              pressureTR:(float) pressureTR 
+              pressureBR:(float) pressureBR 
+              pressureTL:(float) pressureTL 
+              pressureBL:(float) pressureBL 
+{
+    //Enable the "check" image on the wii board
+    if([g_WiiConnOkImage isHidden])
+    {
+        [g_WiiConnOkImage setHidden:FALSE];
+    }
+    
+    if([g_NXTConnectButton isEnabled] == FALSE)
+    {
+        [g_NXTConnectButton setEnabled:TRUE];
+    }
+    
+    //Save the current pressure states
+    if (type == WiiBalanceBoardPressureSensor)
+    {   
+        currentPresureBL = pressureBL;
+        currentPresureBR = pressureBR;
+        currentPresureTL = pressureTL;
+        currentPresureTR = pressureTR;
+	}
+}
+
+
+/******************************************************
+ //
+ // The function is called if for some reason the connection
+ // to the Wii board did not succed.
+ // 
+ *******************************************************/
+- (void) WiiRemoteDiscoveryError:(int)code 
+{
 	//[discoverySpinner stopAnimation:self];
     
-    [labelText setStringValue:@"Fejl"];
-}
-
-- (void) willStartWiimoteConnections {
-    [labelText setStringValue:@"Opening connection."];
+    [g_InfoLabel setStringValue:@"Fejl"];
 }
 
 
+/******************************************************
+ //
+ // The function is called by the wii conponent when it 
+ // starts to connect to the wii board.
+ // 
+ *******************************************************/
+- (void) willStartWiimoteConnections 
+{
+    [g_InfoLabel setStringValue:@"Opening connection."];
+}
+
+
+/******************************************************
+ //
+ // Called when the wii board is found.
+ // The function establishes the connection to the Wii board
+ // 
+ *******************************************************/
 - (void) WiiRemoteDiscovered:(WiiRemote*)wiimote {
 	
-	//	[discovery stop];
+    [m_WiiDiscovery stop];
 	
 	// the wiimote must be retained because the discovery provides us with an autoreleased object
-	wii = [wiimote retain];
+	m_WiiRemote = [wiimote retain];
 	[wiimote setDelegate:self];
-	
-    //[labelText setStringValue:@"===== Connected to WiiRemote ====="];
 	
 	[wiimote setLEDEnabled1:YES enabled2:NO enabled3:NO enabled4:NO];
     
 	[wiimote setMotionSensorEnabled:YES];
     
-    _wii = [[WiiBoardPosCalc alloc] init];
+    //Create calculators
+    m_WiiBoardCalc = [[WiiBoardPosCalc alloc] init];
+    m_NxtMoterCalc = [[NXTMoterSpeedCalc alloc] init];
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	[mappingController setSelectionIndex:[[defaults objectForKey:@"selection"] intValue]];
     
-    [imageWiiConnOk setHidden:TRUE];
 	//NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 }
 
-- (void) accelerationChanged:(WiiAccelerationSensorType)type accX:(unsigned short)accX accY:(unsigned short)accY accZ:(unsigned short)accZ{
+
+/******************************************************
+ //
+ // Dummy function used when testing
+ // 
+ *******************************************************/
+- (void) accelerationChanged:(WiiAccelerationSensorType)type 
+                        accX:(unsigned short)accX 
+                        accY:(unsigned short)accY 
+                        accZ:(unsigned short)accZ
+{
     //NSLog(@"Acceleration changed A");
 }
 
-- (void) allPressureChanged:(WiiPressureSensorType)type bbData:(WiiBalanceBoardGrid) bbData bbDataInKg:(WiiBalanceBoardGrid) bbDataInKg {
+/******************************************************
+ //
+ // Dummy function used when testing
+ // 
+ *******************************************************/
+- (void) allPressureChanged:(WiiPressureSensorType)type 
+                     bbData:(WiiBalanceBoardGrid) bbData 
+                 bbDataInKg:(WiiBalanceBoardGrid) bbDataInKg 
+{
 	//This part is for writing data to a file.  Data is scaled to local gravitational acceleration and contains absolute local times.
 	
 	//[labelText setStringValue:@"===== Balance board test allpreacure ====="];
 	
 	//End of part for writing data to file.	
-}
-
-
-
-
-
-- (void) updateMotorSpeedEvent:(NSTimer*)thetimer
-{
-    NSLog(@"Adjusting motor speed");
-    NXTMotorSpeed nxtMotorSpeed;
-    
-    
-    nxtMotorSpeed = [_wii ConvertPressurePointsToSpeed:currentPresureTR pressureTL:currentPresureTL pressureBR:currentPresureBR pressureBL:currentPresureBL];
-    
-    
-    
-    [_nxt moveServo:kNXTMotorA power:nxtMotorSpeed.MotorSpeedA tacholimit:0];
-    
-    [_nxt moveServo:kNXTMotorB power:nxtMotorSpeed.MotorSpeedB tacholimit:0];
-}
-
-
-- (void) pressureChanged:(WiiPressureSensorType)type pressureTR:(float) pressureTR pressureBR:(float) pressureBR 
-              pressureTL:(float) pressureTL pressureBL:(float) pressureBL {
-    
-    //[labelText setStringValue:@"===== Preasure changed ====="];
-    
-    //NSLog([NSString stringWithFormat:@"%F", pressureTR]);
-    
-	if (type == WiiBalanceBoardPressureSensor){
-        //int weightR = (pressureTR - pressureBR);
-        //int weightL = (pressureTL - pressureBL);
-        
-        currentPresureBL = pressureBL;
-        currentPresureBR = pressureBR;
-        currentPresureTL = pressureTL;
-        currentPresureTR = pressureTR;
-
-        //[labelText setStringValue:[NSString stringWithFormat:@"%d", nxtMotorSpeed.MotorSpeedA]];
-        
-        //NSLog([NSString stringWithFormat:@"%d", pressureTR]);
-        
-         //ConvertPressurePoints
-        
-        //[labelText setStringValue: [NSString stringWithFormat:@"%d", weightL]];
-        //[textField setStringValue: [NSString stringWithFormat:@"%d", weightR]];
-        
-        //[bPressureTR setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureTR]];
-		//[bPressureBR setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureBR]];
-		//[bPressureTL setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureTL]];
-		//[bPressureBL setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureBL]];
-		//[bbQCView setValue:[NSNumber numberWithFloat: 0.1 + (pressureTR/5)] forInputKey:[NSString stringWithString:@"sizeTR"]];
-		//[bbQCView setValue:[NSNumber numberWithFloat: 0.1 + (pressureBR/5)] forInputKey:[NSString stringWithString:@"sizeBR"]];
-		//[bbQCView setValue:[NSNumber numberWithFloat: 0.1 + (pressureTL/5)] forInputKey:[NSString stringWithString:@"sizeTL"]];
-		//[bbQCView setValue:[NSNumber numberWithFloat: 0.1 + (pressureBL/5)] forInputKey:[NSString stringWithString:@"sizeBL"]];
-		
-		//This part is for writing data to a file.  Data is scaled to local gravitational acceleration and contains absolute local times.
-		
-		//struct tm *t;
-		//struct timeval tval;
-		//struct timezone tzone;
-		
-		
-		//gettimeofday(&tval, &tzone);
-		//t = localtime(&(tval.tv_sec));
-        
-		
-	
-	}
 }	
 
 
-- (void) buttonChanged:(WiiButtonType)type isPressed:(BOOL)isPressed{
-    [labelText setStringValue:@"===== Jubii button changed ====="];
+/******************************************************
+ //
+ // Dummy function used when testing
+ // 
+ *******************************************************/
+- (void) buttonChanged:(WiiButtonType)type 
+             isPressed:(BOOL)isPressed
+{
+    [g_InfoLabel setStringValue:@"===== Jubii button changed ====="];
     NSLog(@"Button changed");
     
     //id mappings = [mappingController selection];
@@ -278,18 +312,18 @@
 	if (type == WiiRemoteAButton)
     {
         NSLog(@"Button changed A");
-        [labelText setStringValue:@"===== Button A Pressed ====="];
+        [g_InfoLabel setStringValue:@"===== Button A Pressed ====="];
         
         //[_nxt startProgram:@"helloworld.rxe"];
         
-        [_nxt playTone:1 duration:200];
+        [m_NXT playTone:1 duration:200];
         
-        [_nxt messageWrite:1 message:@"Test" size:4];
+        [m_NXT messageWrite:1 message:@"Test" size:4];
         
     }
     else if(type == WiiRemoteUpButton)
     {
-        [labelText setStringValue:@"===== Button Up Pressed ====="];
+        [g_InfoLabel setStringValue:@"===== Button Up Pressed ====="];
         
         
         //[_nxt moveServo:kNXTMotorA power:currentSpeed tacholimit:0];
@@ -302,7 +336,7 @@
     }
     else if(type == WiiRemoteDownButton)
     {
-        [labelText setStringValue:@"===== Button Down Pressed ====="];
+        [g_InfoLabel setStringValue:@"===== Button Down Pressed ====="];
     
         //[_nxt moveServo:kNXTMotorA power:0 tacholimit:0];
         //currentSpeed = 0;
@@ -315,25 +349,25 @@
     }
     else if(type == WiiRemoteRightButton)
     {
-        [labelText setStringValue:@"===== Button Right Pressed ====="];
+        [g_InfoLabel setStringValue:@"===== Button Right Pressed ====="];
         
         
     }
     else if(type == WiiRemoteLeftButton)
     {
-        [labelText setStringValue:@"===== Button Left Pressed ====="];
+        [g_InfoLabel setStringValue:@"===== Button Left Pressed ====="];
         
         
     }
     else if(type == WiiRemoteBButton)
     {
-        [labelText setStringValue:@"===== Button B Pressed ====="];
+        [g_InfoLabel setStringValue:@"===== Button B Pressed ====="];
         
-        [_nxt stopProgram];
+        [m_NXT stopProgram];
     }
-    [_nxt moveServo:kNXTMotorA power:currentSpeedA tacholimit:0];
+    [m_NXT moveServo:kNXTMotorA power:currentSpeedA tacholimit:0];
     
-    [_nxt moveServo:kNXTMotorB power:currentSpeedB tacholimit:0];
+    [m_NXT moveServo:kNXTMotorB power:currentSpeedB tacholimit:0];
 }
 
 @end

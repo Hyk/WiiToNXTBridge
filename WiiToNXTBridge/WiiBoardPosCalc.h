@@ -28,14 +28,9 @@ typedef struct wiiBoardPos
 {
     int X;
     int Y;
+    float Weight;
     Quadrant Q;
 } WiiBoardPos;
-
-typedef struct nxtMotorSpeed
-{
-    int MotorSpeedA;
-    int MotorSpeedB;
-} NXTMotorSpeed;
 
 @interface WiiBoardPosCalc : NSObject 
 {
@@ -44,7 +39,7 @@ typedef struct nxtMotorSpeed
     
 }
 
-- (NXTMotorSpeed) CalcMotorSpeed:(int)xPos y:(int)yPos Q:(Quadrant)quadrant;
+//- (NXTMotorSpeed) CalcMotorSpeed:(int)xPos y:(int)yPos Q:(Quadrant)quadrant;
 - (BOOL) IsWithinIdleArea:(int)xPos y:(int)yPos;
 - (BOOL) IsWithinStraightForwardArea:(int)xPos y:(int)yPos;
 - (BOOL) IsWithinStraightBackwardArea:(int)xPos y:(int)yPos;
@@ -52,6 +47,6 @@ typedef struct nxtMotorSpeed
 - (BOOL) IsWithinRotateRightArea:(int)xPos y:(int)yPos;
 - (BOOL) IsWithinArea:(int)xPos y:(int)yPos area:(Boundaries)boundaries;
 
-- (NXTMotorSpeed) ConvertPressurePointsToSpeed: (int)topRight pressureTL:(int)topLeft pressureBR:(int)buttomRight pressureBL:(int)buttomLeft;
+- (WiiBoardPos) GetWiiBoardPosition: (int)topRight pressureTL:(int)topLeft pressureBR:(int)buttomRight pressureBL:(int)buttomLeft;
 
 @end

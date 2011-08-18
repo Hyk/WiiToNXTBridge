@@ -50,33 +50,21 @@
     [super dealloc];
 }
 
-- (NXTMotorSpeed) ConvertPressurePointsToSpeed:(int)topRight pressureTL:(int)topLeft pressureBR:(int)buttomRight pressureBL:(int)buttomLeft
+- (WiiBoardPos) GetWiiBoardPosition:(int)topRight 
+                         pressureTL:(int)topLeft 
+                         pressureBR:(int)buttomRight 
+                         pressureBL:(int)buttomLeft
 {
-    NSLog(@"===== ConvertPressurePointsToSpeed=====");
     WiiBoardPos wiiboardPos;
-    NXTMotorSpeed nxtMotorSpeed;
-    
-    NSLog(@"topRight");
-    NSLog([NSString stringWithFormat:@"%d", topRight]);
     
     /* Center Of Gravity Widget logic */
     int x = (topRight + buttomRight) - (topLeft + buttomLeft);
     int y = (topLeft + topRight) - (buttomLeft + buttomRight);
-    //int weight = (topRight + buttomRight + topLeft + buttomLeft);
-
-    NSLog(@"xPos");
-    NSLog([NSString stringWithFormat:@"%d", x]);
+    int weight = (topRight + buttomRight + topLeft + buttomLeft);
     
     wiiboardPos.X = x;
     wiiboardPos.Y = y;
-    
-    //NSLog([NSString stringWithFormat:@"%dTest xPos", x]);
-    //NSLog([NSString stringWithFormat:@"%dTest yPos", y]);
-    NSLog(@"X");
-    NSLog([NSString stringWithFormat:@"%d", x]);
-    NSLog(@"Y");
-    NSLog([NSString stringWithFormat:@"%d", y]);
-    
+    wiiboardPos.Weight = weight;
     
     if([self IsWithinIdleArea:x y:y])
     {
@@ -103,76 +91,7 @@
         wiiboardPos.Q = Turn;
     }
     
-    NSLog(@"Quadrant");
-    NSLog([NSString stringWithFormat:@"%d", wiiboardPos.Q]);
-    
-    nxtMotorSpeed = [self CalcMotorSpeed:x y:y Q:wiiboardPos.Q];
-    
-    return nxtMotorSpeed;
-}
-
-- (NXTMotorSpeed) CalcMotorSpeed:(int)xPos y:(int)yPos Q:(Quadrant)quadrant
-{
-    NXTMotorSpeed nxtMotorSpeed;
-    int velocityA;
-    int velocityB;
-    
-    switch (quadrant) {
-        case Idle:
-            velocityA = 0;
-            velocityB = 0;
-            break;
-        case Straight:
-            if(yPos > 0)
-            {
-                velocityA = (yPos - idle.Upper);// * 2;
-                velocityB = (yPos - idle.Upper);// * 2;
-            }
-            else
-            {
-                velocityA = (yPos - idle.Lower);// * 2;
-                velocityB = (yPos - idle.Lower);// * 2;
-            }
-            break;
-        case Turn:
-            if(xPos > 0 && yPos > 0)
-            {
-                //Top right
-                velocityA = (float)yPos * ((((float)(80-xPos))/80.0)/ 1.5);
-                velocityB = yPos;
-            }
-            else if(xPos > 0 && yPos < 0)
-            {
-                //Buttom right
-                velocityA = (float)yPos * (1.0-(((float)(xPos))/80.0));
-                velocityB = yPos;    
-            }
-            else if(xPos < 0 && yPos > 0)
-            {
-                //Top left
-                velocityA = yPos;
-                velocityB = (float)yPos * ((((float)(80+xPos*2))/80.0) / 1.5);
-            }
-            else if(xPos < 0 && yPos < 0)
-            {
-                //Buttom left
-                velocityA = yPos;
-                velocityB = (float)yPos * (1.0+(((float)(xPos))/80.0));
-            }
-            break;
-        case Rotate:
-            velocityA = - xPos;
-            velocityB = xPos;
-            break;
-            
-        default:
-            break;
-    }
-    
-    nxtMotorSpeed.MotorSpeedA = velocityA * 2;
-    nxtMotorSpeed.MotorSpeedB = velocityB * 2;
-    
-    return nxtMotorSpeed;
+    return wiiboardPos;
 }
 
 - (BOOL) IsWithinArea:(int)xPos y:(int)yPos area:(Boundaries)boundaries

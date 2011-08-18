@@ -9,21 +9,24 @@
 #import <Cocoa/Cocoa.h>
 #import <LegoNXT/LegoNXT.h>
 #import "WiiBoardPosCalc.h"
+#import "NXTMoterSpeedCalc.h"
 #import <WiiRemote/WiiRemote.h>
 #import <WiiRemote/WiiRemoteDiscovery.h>
 
 @interface TestButtonCounter : NSView 
 {
 	IBOutlet NSArrayController* mappingController;
-    IBOutlet NSButton* aButton;
-    IBOutlet NSButton *connectButton;
-    IBOutlet NSImageView* imageWiiConnOk;
+    IBOutlet NSButton* g_WiiConnectButton;
+    IBOutlet NSButton* g_NXTConnectButton;
+    IBOutlet NSImageView* g_WiiConnOkImage;
+    IBOutlet NSImageView* g_NxtConnOkImage;
     
 @private
-    WiiRemoteDiscovery *discovery;
-	WiiRemote* wii;
-    NXT* _nxt;
-    WiiBoardPosCalc* _wii;
+    WiiRemoteDiscovery* m_WiiDiscovery;
+	WiiRemote* m_WiiRemote;
+    NXT* m_NXT;
+    WiiBoardPosCalc* m_WiiBoardCalc;
+    NXTMoterSpeedCalc* m_NxtMoterCalc;
     
     int currentSpeedA;
     int currentSpeedB;
@@ -37,21 +40,13 @@
     
     //bounderies    
     NSTextField *textField;
-    NSTextField *labelText;
-    
-    //Images
-    NSImageCell *imageWiiConOk;
-    NSImageCell *imageNxtConOk;
+    NSTextField *g_InfoLabel;
 }
 
-- (IBAction)doConnect:(id)sender;
-    
+@property (assign) IBOutlet NSTextField *g_InfoLabel;
 
-@property (assign) IBOutlet NSTextField *textField;
-
-@property (assign) IBOutlet NSTextField *labelText;
-
-- (IBAction)buttonPress:(id)sender;
+- (IBAction)connectToNXTButtonPressed:(id)sender;
+- (IBAction)connectToWiiButtonPressed:(id)sender;
 - (void) updateMotorSpeedEvent:(NSTimer*)thetimer;
 
 #pragma mark -
